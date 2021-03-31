@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState, useRef} from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axios from "../axios";
 import styled from "styled-components";
 import { fetchMovie } from "../Requests";
@@ -12,43 +12,45 @@ function ModalVideo({ VideoId, loadVideo, setLoadVideo, title }) {
     const [video, setVideo] = useState([]);
 
 
-     
+    useEffect(() => {
         async function fetchData() {
             const request = await axios.get(fetchMovie(VideoId));
             setVideo(request.data.videos.results[0]);
             return request;
         }
         fetchData();
-  
+
+    }, [VideoId])
 
 
-    const closeVideo = e =>{
-        if(videoRef.current === e.target){
+
+    const closeVideo = e => {
+        if (videoRef.current === e.target) {
             setLoadVideo(false);
-        }; 
+        };
     }
 
     return (
-      <>
+        <>
             { loadVideo ? (
                 <div>
                     <VideoPopup ref={videoRef} onClick={closeVideo}>
-                    <Video>
-                        <iframe
-                            width="800"
-                            height="500"
-                            src={`https://www.youtube.com/embed/${video?.key}?&autoplay=1&rel=0`}
-                            allowfullscreen="allowfullscreen"
-                            frameborder="0"
-                            allow="autoplay; encrypted-media"
-                            title={title}
-                        ></iframe>
-                    </Video>
+                        <Video>
+                            <iframe
+                                width="800"
+                                height="500"
+                                src={`https://www.youtube.com/embed/${video?.key}?&autoplay=1&rel=0`}
+                                allowfullscreen="allowfullscreen"
+                                frameborder="0"
+                                allow="autoplay; encrypted-media"
+                                title={title}
+                            ></iframe>
+                        </Video>
                     </VideoPopup>
                 </div>
             ) : null}
-            </>
-  );
+        </>
+    );
 }
 
 const VideoPopup = styled.div`

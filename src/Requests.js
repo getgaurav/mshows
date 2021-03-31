@@ -1,6 +1,6 @@
 require('dotenv').config()
 
-export const API_KEY = process.env.REACT_APP_TMDB_API_KEY
+export const API_KEY = 'ca8a779b4320cb605d94f1a302d0ab66';
 
 const requests = {
     tranding:`/trending/all/week?api_key=${API_KEY}&language=en-US`,
